@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #14aec2;
+  --color-primary-hover: #119ab0;
+  --color-primary-soft: rgba(20, 174, 194, 0.16);
+  --color-primary-border: rgba(20, 174, 194, 0.32);
+  --bg-main: #0d1416;
+  --bg-surface: #131e20;
+  --bg-surface-2: #16211f;
+  --bg-elevated: #1a2628;
+  --border-base: #243335;
+  --border-subtle: #1c2a2c;
+  --border-medium: #2c3d3f;
+  --text-primary: #e9f0f1;
+  --text-secondary: #c2cdce;
+  --text-muted: #a6b2b4;
+  --text-dim: #8e9c9e;
+  --font-sans: 'IBM Plex Sans', 'IBM Plex Sans SC', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', SFMono-Regular, Consolas, monospace;
+  --corner-smooth: squircle;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:where(*, *::before, *::after) {
+  corner-shape: var(--corner-smooth);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-main);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--text-primary);
+  background: var(--bg-main);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+canvas,
+svg {
+  display: block;
+}
+
+::selection {
+  color: #071112;
+  background: #45d8e6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
