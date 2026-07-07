@@ -132,7 +132,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px clamp(20px, 5vw, 64px);
+  padding: 18px clamp(20px, 5vw, 64px);
 }
 .cinematic-topbar nav {
   display: flex;

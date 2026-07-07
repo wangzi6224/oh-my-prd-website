@@ -1,0 +1,118 @@
+<svg width="850" height="310" viewBox="20 20 850 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Oh My PRD Logo</title>
+  <desc id="desc">A futuristic minimalist glassmorphism logo for Oh My PRD using teal gradients, AI nodes, and structured PRD document blocks.</desc>
+  <defs>
+    <linearGradient id="brandGradient" x1="104" y1="66" x2="286" y2="284" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.18" stop-color="#82F6FF" stop-opacity="0.98"/>
+      <stop offset="0.48" stop-color="#14AEC2"/>
+      <stop offset="0.78" stop-color="#0E6A78"/>
+      <stop offset="1" stop-color="#062D36"/>
+    </linearGradient>
+
+    <linearGradient id="glassPanel" x1="59" y1="48" x2="283" y2="304" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.38"/>
+      <stop offset="0.26" stop-color="#BDF9FF" stop-opacity="0.18"/>
+      <stop offset="0.6" stop-color="#14AEC2" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#041A21" stop-opacity="0.64"/>
+    </linearGradient>
+
+    <linearGradient id="rimGradient" x1="76" y1="51" x2="275" y2="288" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.92"/>
+      <stop offset="0.24" stop-color="#8EF8FF" stop-opacity="0.86"/>
+      <stop offset="0.56" stop-color="#14AEC2" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#0A4550" stop-opacity="0.84"/>
+    </linearGradient>
+
+    <linearGradient id="inkGradient" x1="377" y1="110" x2="972" y2="255" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F3FBFC"/>
+      <stop offset="0.5" stop-color="#D8F5F8"/>
+      <stop offset="1" stop-color="#9CDCE5"/>
+    </linearGradient>
+
+    <linearGradient id="subInkGradient" x1="384" y1="246" x2="948" y2="246" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A4EEF5" stop-opacity="0.88"/>
+      <stop offset="0.6" stop-color="#5ECBD8" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#B4F9FF" stop-opacity="0.58"/>
+    </linearGradient>
+
+    <radialGradient id="aura" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(185 181) rotate(90) scale(150 150)">
+      <stop offset="0" stop-color="#51F1FF" stop-opacity="0.45"/>
+      <stop offset="0.45" stop-color="#14AEC2" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#14AEC2" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="softShadow" x="10" y="8" width="334" height="334" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#00151A" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#14AEC2" flood-opacity="0.18"/>
+    </filter>
+
+    <filter id="innerGlow" x="40" y="38" width="282" height="282" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.078 0 0 0 0 0.682 0 0 0 0 0.761 0 0 0 0.58 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+
+    <filter id="lineGlow" x="70" y="70" width="230" height="220" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.078 0 0 0 0 0.682 0 0 0 0 0.761 0 0 0 0.8 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+
+    <filter id="textGlow" x="340" y="74" width="780" height="230" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#14AEC2" flood-opacity="0.13"/>
+    </filter>
+
+    <clipPath id="panelClip">
+      <rect x="54" y="42" width="252" height="252" rx="64"/>
+    </clipPath>
+  </defs>
+
+  <g id="logo-mark">
+    <circle cx="180" cy="180" r="148" fill="url(#aura)"/>
+
+    <rect x="54" y="42" width="252" height="252" rx="64" fill="url(#glassPanel)" stroke="url(#rimGradient)" stroke-width="1.6"/>
+    <rect x="68" y="56" width="224" height="224" rx="52" fill="#071E25" fill-opacity="0.32" stroke="#FFFFFF" stroke-opacity="0.12"/>
+
+    <g clip-path="url(#panelClip)" opacity="0.92">
+      <path d="M53 88C94 52 136 66 165 103C193 139 246 127 308 74V42H53V88Z" fill="white" fill-opacity="0.16"/>
+      <path d="M42 276C85 208 145 208 192 236C234 261 275 248 322 206V304H42V276Z" fill="#14AEC2" fill-opacity="0.14"/>
+      <path d="M92 47L300 255" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="28"/>
+      <path d="M40 228L219 49" stroke="#14AEC2" stroke-opacity="0.1" stroke-width="18"/>
+    </g>
+
+    <g id="symbol" filter="url(#innerGlow)">
+      <path d="M123 113C123 103.611 130.611 96 140 96H192C224.585 96 251 122.415 251 155C251 187.585 224.585 214 192 214H161V249C161 255.627 155.627 261 149 261H135C128.373 261 123 255.627 123 249V113Z" fill="url(#brandGradient)"/>
+      <path d="M162 134H191C202.598 134 212 143.402 212 155C212 166.598 202.598 176 191 176H162V134Z" fill="#051B22" fill-opacity="0.74"/>
+      <path d="M161.5 134.5H191C202.322 134.5 211.5 143.678 211.5 155C211.5 166.322 202.322 175.5 191 175.5H161.5V134.5Z" stroke="white" stroke-opacity="0.16"/>
+
+      <rect x="164" y="219" width="71" height="9" rx="4.5" fill="#BFFAFF" fill-opacity="0.78"/>
+      <rect x="164" y="238" width="50" height="9" rx="4.5" fill="#14AEC2" fill-opacity="0.72"/>
+      <rect x="164" y="200" width="91" height="9" rx="4.5" fill="#E7FEFF" fill-opacity="0.68"/>
+    </g>
+
+    <g id="ai-network" filter="url(#lineGlow)" stroke-linecap="round">
+      <path d="M112 119L87 96" stroke="#A9F7FF" stroke-opacity="0.64" stroke-width="2"/>
+      <path d="M235 132L270 108" stroke="#A9F7FF" stroke-opacity="0.54" stroke-width="2"/>
+      <path d="M230 236L268 258" stroke="#A9F7FF" stroke-opacity="0.42" stroke-width="2"/>
+      <path d="M99 253L128 228" stroke="#A9F7FF" stroke-opacity="0.42" stroke-width="2"/>
+      <circle cx="86" cy="95" r="7" fill="#E9FFFF"/>
+      <circle cx="86" cy="95" r="12" stroke="#14AEC2" stroke-opacity="0.35"/>
+      <circle cx="270" cy="108" r="6" fill="#C5FBFF"/>
+      <circle cx="270" cy="108" r="11" stroke="#14AEC2" stroke-opacity="0.28"/>
+      <circle cx="268" cy="258" r="5.5" fill="#7BEFFA"/>
+      <circle cx="98" cy="254" r="5" fill="#67E7F4"/>
+    </g>
+
+    <rect x="54.8" y="42.8" width="250.4" height="250.4" rx="63.2" stroke="white" stroke-opacity="0.18" stroke-width="1"/>
+  </g>
+
+  <g id="wordmark">
+    <text x="370" y="160" fill="url(#inkGradient)" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="78" font-weight="760" letter-spacing="-2.8">Oh My PRD</text>
+    <text x="374" y="214" fill="url(#subInkGradient)" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="520" letter-spacing="3.8">AI REQUIREMENT WORKBENCH</text>
+    <path d="M374 234H764" stroke="url(#brandGradient)" stroke-width="2.2" stroke-linecap="round" opacity="0.62"/>
+    <circle cx="788" cy="234" r="4" fill="#D9FEFF" opacity="0.92"/>
+    <circle cx="810" cy="234" r="4" fill="#14AEC2" opacity="0.88"/>
+    <circle cx="832" cy="234" r="4" fill="#6EF3FF" opacity="0.74"/>
+  </g>
+</svg>

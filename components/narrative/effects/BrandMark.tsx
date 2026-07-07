@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import clsx from 'clsx';
 
 export function BrandMark({
@@ -9,29 +10,33 @@ export function BrandMark({
   showName?: boolean;
   className?: string;
 }) {
+  const asset = showName
+    ? '/logo/oh-my-prd-logo-dark.svg'
+    : '/logo/oh-my-prd-mark.svg';
+
   return (
     <div className={clsx('brand-mark inline-flex items-center gap-3', className)}>
-      <span
+      <Image
         className={clsx(
-          'brand-logo relative inline-flex items-center justify-center overflow-hidden rounded-[10px] bg-[#14aec2] font-bold text-[#061113] shadow-[0_18px_58px_-24px_rgba(20,174,194,0.9)]',
-          size === 'sm' && 'size-8 text-xs',
-          size === 'md' && 'size-10 text-sm',
-          size === 'lg' && 'size-16 rounded-[16px] text-xl',
+          'brand-logo block object-contain drop-shadow-[0_18px_58px_rgba(20,174,194,0.28)]',
+          showName
+            ? [
+                size === 'sm' && 'h-8 w-[107px]',
+                size === 'md' && 'h-[72px] w-[197px]',
+                size === 'lg' && 'h-24 w-[263px]',
+              ]
+            : [
+                size === 'sm' && 'size-8',
+                size === 'md' && 'size-10',
+                size === 'lg' && 'size-16',
+              ],
         )}
-      >
-        <span className="relative z-10">OP</span>
-        <span className="brand-sweep pointer-events-none absolute inset-y-[-20%] left-[-90%] w-1/2 rotate-12 bg-white/40 blur-md" />
-      </span>
-      {showName ? (
-        <span
-          className={clsx(
-            'brand-name font-semibold text-[#e9f0f1]',
-            size === 'lg' ? 'text-2xl' : 'text-sm',
-          )}
-        >
-          Oh My PRD
-        </span>
-      ) : null}
+        src={asset}
+        width={showName ? 850 : 512}
+        height={showName ? 310 : 512}
+        alt={showName ? 'Oh My PRD' : ''}
+        aria-hidden={showName ? undefined : 'true'}
+      />
     </div>
   );
 }
