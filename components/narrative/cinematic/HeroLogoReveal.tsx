@@ -1,15 +1,13 @@
 export function HeroLogoReveal() {
   return (
-    <section className="cinematic-logo-hero" aria-label="Oh My PRD">
-      <div className="cinematic-logo-hero__halo" aria-hidden="true" />
-      <div className="cinematic-logo-hero__mark" aria-hidden="true">
+    <div className="cinematic-hero" aria-hidden="true">
+      <div className="cinematic-hero__halo" />
+      <div className="cinematic-hero__mark">
         <span>Oh</span>
         <span>My</span>
         <span>PRD</span>
       </div>
-      <span className="cinematic-logo-hero__plain" aria-hidden="true">
-        Requirement Intelligence System
-      </span>
-    </section>
+      <span className="cinematic-hero__sub">AI 需求工作台 · Requirement Workbench</span>
+    </div>
   );
 }

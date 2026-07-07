@@ -1,146 +1,117 @@
 'use client';
 
-import type { CSSProperties } from 'react';
-import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { BrandMark } from '@/components/narrative/effects/BrandMark';
 import { GlowButton } from '@/components/ui/GlowButton';
-import { cinematicScenes } from '@/content/cinematicNarrative';
+import { useCinematicScroll } from '@/lib/scroll/useCinematicScroll';
+import { ACT_COUNT, cinematicScenes } from '@/content/cinematicNarrative';
+import { ActGraphic } from '@/components/narrative/acts/graphics/ActGraphics';
 import { CinematicCopy, CinematicSceneNav } from './CinematicCopy';
 import { HeroLogoReveal } from './HeroLogoReveal';
-import { MorphWorkbench } from './MorphWorkbench';
-import { PixelFieldBackground } from './PixelFieldBackground';
+
+// WebGL 画布只在客户端加载(touches window / three)
+const RequirementCanvas = dynamic(
+  () => import('@/components/webgl/RequirementCanvas').then((m) => m.RequirementCanvas),
+  { ssr: false },
+);
 
 const githubUrl = 'https://github.com/wangzi6224/oh-my-prd';
-const heroReleaseThreshold = 0.42;
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
-}
+const phaseRail = ['痛点', '探针', '成文', '图谱', '关联', '闭环'];
 
 export function CinematicStory() {
-  const rootRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const heroActiveRef = useRef(true);
-  const activeIndexRef = useRef(0);
-  const tickingRef = useRef(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHeroActive, setIsHeroActive] = useState(true);
-  const activeScene = cinematicScenes[activeIndex];
-
-  const update = useCallback(() => {
-    tickingRef.current = false;
-    const root = rootRef.current;
-    const track = trackRef.current;
-    if (!root || !track) return;
-
-    const maxScroll = Math.max(track.offsetHeight - window.innerHeight, 1);
-    const y = clamp(window.scrollY - track.offsetTop, 0, maxScroll);
-    const progress = y / maxScroll;
-    const raw = progress * cinematicScenes.length;
-    const nextIndex = clamp(Math.floor(raw), 0, cinematicScenes.length - 1);
-    const localProgress = raw - nextIndex;
-    const heroScatter = clamp(raw, 0, 1);
-
-    root.style.setProperty('--story-progress', progress.toFixed(4));
-    root.style.setProperty('--scene-progress', localProgress.toFixed(4));
-    root.style.setProperty('--hero-scatter', heroScatter.toFixed(4));
-
-    const nextHeroActive = heroScatter < heroReleaseThreshold;
-    if (nextHeroActive !== heroActiveRef.current) {
-      heroActiveRef.current = nextHeroActive;
-      setIsHeroActive(nextHeroActive);
-    }
-
-    if (nextIndex !== activeIndexRef.current) {
-      activeIndexRef.current = nextIndex;
-      startTransition(() => {
-        setActiveIndex(nextIndex);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (tickingRef.current) return;
-      tickingRef.current = true;
-      window.requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', update);
-    };
-  }, [update]);
-
-  const selectScene = useCallback((index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const maxScroll = Math.max(track.offsetHeight - window.innerHeight, 1);
-    const target = track.offsetTop + maxScroll * (index / (cinematicScenes.length - 1));
-    window.scrollTo({ top: target, behavior: 'smooth' });
-  }, []);
+  const { trackRef, progressRef, sceneRef, activeAct, scrollToAct } =
+    useCinematicScroll(ACT_COUNT);
+  const activeScene = cinematicScenes[activeAct];
 
   return (
-    <main
-      ref={rootRef}
-      className="cinematic-story"
-      data-scene={activeIndex}
-      data-tone={activeScene.tone}
-      data-hero={isHeroActive ? 'active' : 'released'}
-      style={{ '--scene-count': cinematicScenes.length } as CSSProperties}
-    >
-      <PixelFieldBackground />
-      <div className="cinematic-progress" aria-hidden="true" />
+    <main className="cinematic" data-tone={activeScene.tone} data-act={activeAct}>
+      <div className="cinematic-techbg" aria-hidden="true" />
+      <RequirementCanvas progressRef={progressRef} sceneRef={sceneRef} />
+      <div className="cinematic-scrim" aria-hidden="true" />
+
+      <div className="cinematic-progress" aria-hidden="true">
+        <span className="cinematic-progress__bar" />
+      </div>
 
       <header className="cinematic-topbar">
         <BrandMark size="md" />
         <nav aria-label="页面导航">
-          <a href="#cinematic-story">叙事</a>
-          <a href="#cinematic-final">闭环</a>
-          <a href={githubUrl}>开源仓库</a>
+          <button type="button" onClick={() => scrollToAct(0)}>
+            叙事
+          </button>
+          <button type="button" onClick={() => scrollToAct(6)}>
+            需求图谱
+          </button>
+          <a href={githubUrl} target="_blank" rel="noreferrer">
+            开源仓库
+          </a>
         </nav>
       </header>
 
-      <CinematicSceneNav activeIndex={activeIndex} onSelect={selectScene} />
+      <CinematicSceneNav activeIndex={activeAct} onSelect={scrollToAct} />
 
-      <div ref={trackRef} id="cinematic-story" className="cinematic-story__track">
-        <section className="cinematic-stage" aria-label="Oh My PRD cinematic narrative">
-          <div className="cinematic-current cinematic-current--a" aria-hidden="true" />
-          <div className="cinematic-current cinematic-current--b" aria-hidden="true" />
+      <section ref={trackRef} id="cinematic-story" className="cinematic-track">
+        <div className="cinematic-stage" aria-label="Oh My PRD 需求闭环叙事">
           <HeroLogoReveal />
-          <div className="cinematic-stage__grid">
-            <CinematicCopy scene={activeScene} />
-            <div className="cinematic-visual-stage">
-              <MorphWorkbench scene={activeScene} />
-            </div>
+
+          {/* 全部 12 幕都渲染进 DOM(SEO / 可访问性 / 无 JS 降级);
+              呈现度由滚动连续驱动(--rev/--sp,写在各 .cinematic-act 上)*/}
+          <div className="cinematic-acts">
+            {cinematicScenes.map((scene, i) => (
+              <article
+                key={scene.id}
+                className="cinematic-act"
+                data-motion={scene.motion}
+                aria-hidden={i === activeAct ? undefined : 'true'}
+                style={
+                  {
+                    // 初始全 0:进场时只显示 Hero,不与第一幕重叠;JS 挂载后由滚动接管
+                    '--rev': 0,
+                    '--sp': 0,
+                  } as React.CSSProperties
+                }
+              >
+                <div className="cinematic-grid">
+                  <CinematicCopy scene={scene} isHero={i === 0} />
+                  <div className="cinematic-visual-stage">
+                    <ActGraphic id={scene.id} />
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
+
           <div className="cinematic-phase-rail" aria-hidden="true">
-            <div />
-            <span>痛点</span>
-            <span>探针</span>
-            <span>关联</span>
-            <span>图谱</span>
-            <span>闭环</span>
+            <span className="cinematic-phase-rail__fill" />
+            {phaseRail.map((label) => (
+              <span key={label}>{label}</span>
+            ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       <section id="cinematic-final" className="cinematic-final">
-        <div>
-          <p>Oh My PRD</p>
-          <h2>需求探针、需求关联、需求上下文图谱，最终收束成需求闭环。</h2>
-          <div>
-            <GlowButton href={githubUrl} variant="primary">
+        <div className="cinematic-final__inner">
+          <BrandMark size="lg" showName={false} />
+          <p className="cinematic-final__brand">Oh My PRD</p>
+          <h2 className="cinematic-final__headline">
+            需求探针 · 需求关联 · 需求上下文图谱,
+            <br />
+            最终收束成一条可追踪的需求闭环。
+          </h2>
+          <p className="cinematic-final__sub">
+            把需求当资产来管理 —— 让零散的产品讨论,变成结构化、可追溯、可评审的需求资产。
+          </p>
+          <div className="cinematic-final__cta">
+            <GlowButton href={githubUrl} variant="primary" target="_blank" rel="noreferrer">
               查看 GitHub
             </GlowButton>
             <GlowButton href="#cinematic-story" variant="secondary">
               重新观看
             </GlowButton>
           </div>
+          <p className="cinematic-final__meta">开源 · AGPL-3.0 · AI 需求工作台</p>
         </div>
       </section>
     </main>

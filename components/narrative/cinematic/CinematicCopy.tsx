@@ -1,11 +1,16 @@
 import { cinematicScenes, type CinematicScene } from '@/content/cinematicNarrative';
 
-export function CinematicCopy({ scene }: { scene: CinematicScene }) {
+export function CinematicCopy({ scene, isHero }: { scene: CinematicScene; isHero: boolean }) {
+  const Title = isHero ? 'h1' : 'h2';
   return (
     <article className="cinematic-copy" aria-live="polite">
       <div key={`${scene.id}-copy`} className="cinematic-copy__inner">
-        <p className="cinematic-copy__eyebrow">{scene.eyebrow}</p>
-        <h1 className="cinematic-copy__title">{scene.title}</h1>
+        <p className="cinematic-copy__eyebrow">
+          <span className="cinematic-copy__index">{scene.index}</span>
+          {scene.eyebrow}
+        </p>
+        <Title className="cinematic-copy__title">{scene.title}</Title>
+        <p className="cinematic-copy__kicker">{scene.kicker}</p>
         <p className="cinematic-copy__body">{scene.body}</p>
         <div className="cinematic-copy__tags" aria-label="当前叙事标签">
           {scene.tags.map((tag) => (
@@ -31,10 +36,12 @@ export function CinematicSceneNav({
           key={scene.id}
           type="button"
           className={index === activeIndex ? 'is-active' : undefined}
-          aria-label={`跳转到${scene.nav}`}
+          aria-label={`跳转到第${scene.index}幕:${scene.nav}`}
           aria-current={index === activeIndex ? 'step' : undefined}
           onClick={() => onSelect(index)}
-        />
+        >
+          <span className="cinematic-scene-nav__label">{scene.nav}</span>
+        </button>
       ))}
     </nav>
   );
