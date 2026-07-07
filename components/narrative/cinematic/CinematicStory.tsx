@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { Github } from 'lucide-react';
 import { BrandMark } from '@/components/narrative/effects/BrandMark';
 import { GlowButton } from '@/components/ui/GlowButton';
 import { useCinematicScroll } from '@/lib/scroll/useCinematicScroll';
@@ -37,14 +38,14 @@ export function CinematicStory() {
       <header className="cinematic-topbar">
         <BrandMark size="md" />
         <nav aria-label="页面导航">
-          <button type="button" onClick={() => scrollToAct(0)}>
-            叙事
-          </button>
-          <button type="button" onClick={() => scrollToAct(6)}>
-            需求图谱
-          </button>
-          <a href={githubUrl} target="_blank" rel="noreferrer">
-            开源仓库
+          <a
+            className="cinematic-topbar__gh"
+            href={githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="开源仓库 GitHub"
+          >
+            <Github size={20} strokeWidth={1.75} aria-hidden="true" />
           </a>
         </nav>
       </header>
@@ -66,7 +67,7 @@ export function CinematicStory() {
                 aria-hidden={i === activeAct ? undefined : 'true'}
                 style={
                   {
-                    // 初始全 0:进场时只显示 Hero,不与第一幕重叠;JS 挂载后由滚动接管
+                    // 初始全 0:进场时只显示 Hero,不与首屏内容重叠;JS 挂载后由滚动接管
                     '--rev': 0,
                     '--sp': 0,
                   } as React.CSSProperties

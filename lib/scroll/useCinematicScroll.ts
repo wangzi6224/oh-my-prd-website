@@ -124,7 +124,7 @@ export function useCinematicScroll(actCount: number): CinematicScroll {
           sceneRef.current = act;
           document.documentElement.style.setProperty(
             '--canvas-dim',
-            FOREGROUND_ACTS.has(act) ? '0.85' : '0.2',
+            FOREGROUND_ACTS.has(act) ? '1' : '0.92',
           );
           setActiveAct(act);
         }
