@@ -1332,3 +1332,112 @@ Do not show:
 - HTML/Tailwind should render labels, closing copy, and CTAs.
 - GSAP should own orbit closure, node sequence, center reveal, and CTA reveal.
 - PixiJS can own the orbit particles / circular field, but should not render text labels.
+
+## 13. Single Sticky Cinematic Stage
+
+Status: confirmed
+
+### Reference Direction
+
+Use the supplied `oh-my-prd-cinematic-scroll (2).html` as an interaction-structure reference, not as a final visual copy.
+
+The accepted structure is:
+
+`one long scroll track -> one sticky cinematic stage -> one evolving product object`
+
+The page should avoid looking like independent sections. The main visual object should stay in the same world and morph as the story progresses.
+
+### Narrative Order
+
+The story now starts with pain before introducing the solution:
+
+1. Requirement information is fragmented.
+2. Context and workflow links are broken.
+3. Code impact becomes visible too late.
+4. Oh My PRD introduces the requirement probe.
+5. Requirement linking creates one shared anchor.
+6. The requirement context graph makes source, state, and dependency visible.
+7. The requirement lifecycle closes into a traceable loop.
+
+### Core Concepts
+
+The cinematic homepage must make these concepts memorable:
+
+- `需求探针`
+- `需求关联`
+- `需求上下文图谱`
+- `需求闭环`
+
+They should appear as the structural solution to the earlier pain points, not as a normal feature list.
+
+### Implementation Notes
+
+- Use modular React components: narrative data, copy layer, scene nav, and morphing workbench stay separate.
+- The first implementation can use DOM/CSS transforms and opacity for high frame stability.
+- GSAP and PixiJS remain installed and documented for later specialized motion/canvas layers, but should not be added to runtime paths without a clear performance reason.
+- Per the latest workflow preference, default validation is command-level no-error verification. Browser/visual verification should be requested before running it.
+
+## 14. Hero Logo Reveal
+
+Status: confirmed
+
+### Core Direction
+
+The first viewport should open with a giant `Oh My PRD` brand mark, not the ASCII Text experiment.
+
+The brand should feel submerged in the teal field, with a slow gradient sweep and quiet scroll response.
+
+### Scroll Transition
+
+When the user scrolls down:
+
+1. The brand logo stays centered at first.
+2. The brand words gently separate and fade.
+3. The separation should feel like the opening logo giving way to the product narrative.
+4. The pain-point scene fades in underneath the dispersing logo.
+5. The transition should stay smooth and restrained, using CSS custom properties, transform, and opacity instead of heavy scroll-linked filters or canvas readback.
+
+### Performance Notes
+
+- Do not use Three.js for the hero logo unless a later design explicitly re-approves it.
+- Do not use the React Bits full-frame ASCII filter for this hero. It is too heavy for a full-screen homepage opening.
+- The page scroll handler updates CSS variables; the logo reveal should stay DOM/CSS-driven.
+- Movement should use transform and opacity only.
+
+### Density Rule
+
+The opening viewport should be logo-first.
+
+Do not show dense copy, product UI, feature labels, or dashboard fragments before the logo begins to give way.
+
+## 15. Pixel Field Background
+
+Status: confirmed
+
+### Reference Direction
+
+The global background may reference the supplied PixelBlast implementation:
+
+- low-resolution pixel field,
+- liquid-like drift,
+- subtle pointer disturbance,
+- restrained ripple feedback.
+
+The implementation should not directly import the full `three + postprocessing` version for the homepage background unless a later visual target requires WebGL-specific output.
+
+### Visual Direction
+
+- Theme color remains anchored to `#14aec2` and the current scene accent variables.
+- The field should feel like teal light moving through water, not a loud particle effect.
+- Pixels should be atmospheric and sparse enough to preserve low information density.
+- CSS gradients and grid lines are only depth/fusion layers; the Canvas field is the primary moving texture.
+
+### Performance Rules
+
+- Use a low internal Canvas resolution and upscale with `image-rendering: pixelated`.
+- Use `ImageData` writes instead of DOM nodes, CSS filters, or per-pixel React state.
+- Cap frame rate below full refresh rate for the background layer.
+- Store pointer/ripple data in refs or local effect variables, not React state.
+- Pause animation when the document is hidden.
+- Render a static frame under `prefers-reduced-motion`.
+- Do not add new dependencies for this layer.

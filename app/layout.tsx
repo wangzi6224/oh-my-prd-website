@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import '@/styles/narrative.css';
+import '@/styles/cinematic.css';
 
 export const metadata: Metadata = {
   title: 'Oh My PRD | AI 需求资产工作台',
