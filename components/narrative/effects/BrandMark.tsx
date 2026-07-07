@@ -10,9 +10,10 @@ export function BrandMark({
   showName?: boolean;
   className?: string;
 }) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
   const asset = showName
-    ? '/logo/oh-my-prd-logo-dark.svg'
-    : '/logo/oh-my-prd-mark.svg';
+    ? `${basePath}/logo/oh-my-prd-logo-dark.svg`
+    : `${basePath}/logo/oh-my-prd-mark.svg`;
 
   return (
     <div className={clsx('brand-mark inline-flex items-center gap-3', className)}>
